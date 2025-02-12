@@ -3,11 +3,11 @@ project(SystemMonitorClient)
 
 set(CMAKE_CXX_STANDARD 17)
 
-find_package(Boost REQUIRED COMPONENTS system)
+# Add WebSocket++
+include_directories(${CMAKE_SOURCE_DIR}/third_party/websocketpp)
 
 add_executable(client
     src/main.cpp
 )
 
-target_include_directories(client PRIVATE include)
-target_link_libraries(client PRIVATE Boost::system)
+target_link_libraries(client PRIVATE ws2_32)

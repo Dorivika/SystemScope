@@ -1,30 +1,27 @@
 #ifndef CLIENT_HPP
 #define CLIENT_HPP
 
-#include <boost/beast/core.hpp>
-#include <boost/beast/websocket.hpp>
-#include <boost/asio.hpp>
+#include <websocketpp/config/asio_no_tls_client.hpp>
+#include <websocketpp/client.hpp>
+#include <nlohmann/json.hpp>
 #include <iostream>
 
-namespace beast = boost::beast;
-namespace websocket = beast::websocket;
-namespace net = boost::asio;
-using tcp = net::ip::tcp;
+using json = nlohmann::json;
 
-class WebSocketClient {
+typedef websocketpp::client<websocketpp::config::asio_client> WebSocketClient;
+
+class SystemMonitorClient {
 public:
-    WebSocketClient(net::io_context& ioc, const std::string& host, const std::string& port);
+    SystemMonitorClient();
+    void connect(const std::string& uri);
     void run();
 
 private:
-    tcp::resolver resolver;
-    websocket::stream<tcp::socket> ws;
-    beast::flat_buffer buffer;
+    WebSocketClient client;
+    websocketpp::connection_hdl hdl;
 
-    void on_resolve(beast::error_code ec, tcp::resolver::results_type results);
-    void on_connect(beast::error_code ec, tcp::resolver::results_type::endpoint_type ep);
-    void on_handshake(beast::error_code ec);
-    void on_read(beast::error_code ec, std::size_t bytes_transferred);
+    void on_open(WebSocketClient* c, websocketpp::connection_hdl hdl);
+    void on_message(WebSocketClient* c, websocketpp::connection_hdl hdl, WebSocketClient::message_ptr msg);
 };
 
 #endif // CLIENT_HPP
