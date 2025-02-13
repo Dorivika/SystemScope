@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 # Add WebSocket++
 include_directories(${CMAKE_SOURCE_DIR}/third_party/websocketpp)
-
+include_directories(${CMAKE_SOURCE_DIR}/third_party/boost)
 add_executable(client
     src/main.cpp
 )

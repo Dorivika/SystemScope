@@ -1,0 +1,10 @@
+^C:\VIVEK\CPP\SYSTEMSCOPE\CLIENT\BUILD\CMAKEFILES\CB5311AD4D9D3B88ABB6FF5542872C47\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Vivek/cpp/SystemScope/client -BC:/Vivek/cpp/SystemScope/client/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Vivek/cpp/SystemScope/client/build/SystemMonitorClient.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
